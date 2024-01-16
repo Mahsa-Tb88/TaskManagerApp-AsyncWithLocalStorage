@@ -1,0 +1,129 @@
+.app {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+}
+
+.userList {
+  background-color: #f7f7f7;
+  .inputSearch {
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 20px;
+    .search {
+      border: 1px solid #dee2e6;
+      padding: 4px 7px;
+      border-radius: 5px;
+      outline: none;
+    }
+  }
+  .title {
+    border-bottom: 1px solid #dee2e6;
+  }
+  .list {
+    height: 550px;
+    overflow: auto;
+  }
+}
+.user {
+  cursor: pointer;
+  .name,
+  .family {
+    font-size: 17px;
+  }
+  text-decoration: none;
+  color: rgb(27, 21, 21);
+}
+
+.user:hover {
+  background-color: rgb(124, 183, 249);
+}
+.active {
+  background-color: #0d6efd !important;
+  color: #fff !important;
+}
+.header {
+  border-bottom: 1px solid #dee2e6;
+  height: 79px;
+  padding: 0 10px;
+}
+
+.btn-group {
+  background-color: #0d6efd;
+  padding: 5px 10px;
+  color: #fff;
+
+  .btnAdd {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    text-decoration: none;
+    margin-right: 8px;
+  }
+}
+
+.table {
+  background-color: #f2f2f2;
+  padding: 20px;
+  border-radius: 5px;
+  .input {
+    width: 250px;
+    padding: 4px 7px;
+    border: 1px solid rgb(174, 174, 174);
+    border-radius: 3px;
+  }
+  .label {
+    background-color: transparent;
+  }
+  .img {
+    background-color: transparent;
+  }
+  .btn-submit {
+    background-color: #0d6efd;
+    color: #fff;
+    outline: none;
+    border: 1px solid #0d6efd;
+    padding: 4px 20px;
+    border-radius: 4px;
+  }
+  .btn-submit:hover {
+    background-color: #015eea;
+  }
+  .form-control {
+    resize: none;
+  }
+  .errors {
+    color: rgb(209, 16, 16);
+    background-color: transparent;
+  }
+}
+
+.userinfo {
+  margin: 0 auto;
+  margin-top: 30px;
+  .btn-delete {
+    outline: none;
+    border: 1px solid #dc3545;
+    background-color: #dc3545;
+    color: #fff;
+    border-radius: 3px;
+    padding: 5px 8px;
+  }
+
+  .btn-edit {
+    outline: none;
+    border: 1px solid #0d6efd;
+    background-color: #0d6efd;
+    color: #fff;
+    border-radius: 3px;
+    padding: 5px 8px;
+    text-decoration: none;
+  }
+
+  .section {
+    width: 200px;
+    text-align: left;
+    .desc {
+      margin-left: 0 !important;
+    }
+  }
+}
