@@ -3,7 +3,7 @@ import React from "react";
 import { Link, NavLink, useSearchParams } from "react-router-dom";
 import noAvatar from "../assets/image/no-avatar.png";
 export default function User({ user }) {
-//   const { state, dispatch } = useUsersContext();
+  //   const { state, dispatch } = useUsersContext();
 
   const userClass = [
     "d-flex justify-content-start align-items-center user mb-3 py-2 ",

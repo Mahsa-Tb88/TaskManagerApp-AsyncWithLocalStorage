@@ -127,3 +127,12 @@ async function deleteUser(id) {
     };
   }
 }
+
+export {
+  getAllUsers,
+  getUsers,
+  getUserById,
+  createUser,
+  updateUser,
+  deleteUser,
+};
