@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { UseUserContext } from "../context/AppContext";
-import { getAllUsers, getUserById } from "../utils/api";
+import { deleteUser, getAllUsers, getUserById, updateUser } from "../utils/api";
 
 export default function UserInfo() {
   const { state, dispatch } = UseUserContext();
@@ -12,7 +12,8 @@ export default function UserInfo() {
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    dispatch({ type: "showInfo", payload: "Info User" });
+    dispatch({ type: "setPageTitle", payload: "Info User" });
+
     const timeOut = setTimeout(fetchGetUser, 1000);
     return () => clearTimeout(timeOut);
   }, [params.id]);
@@ -90,15 +91,23 @@ export default function UserInfo() {
       </div>
     );
   }
-  function deleteUserHandler(id) {
-    // deleteUser(id);
-    // const users = getAllUsers();
-    // dispatch({ type: "deleteUser", payload: users });
+  const id = params.id;
+  async function deleteUserHandler(id) {
+    const result = await deleteUser(id);
+    if (result.success) {
+      dispatch({ type: "deleteUser", payload: result.body });
+    } else {
+      dispatch({
+        type: "setSingleLoadingError",
+        payload: { message: result.message, code: result.code },
+      });
+    }
+
     navigate("/");
     toast.success("Deleted Successfully!");
   }
-  function editUserHandler(id) {
-    // dispatch({ type: "editUser", payload: { status: true, id } });
+  async function editUserHandler(id) {
+    dispatch({ type: "setPageTitle", payload: "Edit User" });
   }
 
   return (

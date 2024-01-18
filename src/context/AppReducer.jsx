@@ -3,7 +3,6 @@ export function userReducer(state, action) {
   switch (type) {
     case "setIsMultiLoading":
       return { ...state, isMultiLoading: payload };
-
     case "setUsers":
       return { ...state, users: payload, isMultiLoading: false };
     case "setMultiLoadingError":
@@ -11,7 +10,6 @@ export function userReducer(state, action) {
     case "addUser":
       return {
         ...state,
-        singleLoadingError: payload,
         pageTitle: "Create New User",
       };
     case "backToHome":
@@ -20,8 +18,12 @@ export function userReducer(state, action) {
       return { ...state, isSingleLoading: payload };
     case "setSingleLoadingError":
       return { ...state, singleLoadingError: payload };
-    case "showInfo":
+    case "deleteUser":
+      return { ...state, users: payload, pageTitle: "Home" };
+    case "setPageTitle":
       return { ...state, pageTitle: payload };
+    case "showNewListUser":
+      return { ...state, users: payload };
   }
   throw new Error("Invalid Action");
 }

@@ -12,6 +12,7 @@ const router = createBrowserRouter([
       { index: true, element: <Welcome /> },
       { path: "/newUser", element: <TableUser /> },
       { path: "/user/:id", element: <UserInfo /> },
+      { path: "/user/:id/edit", element: <TableUser /> },
     ],
   },
 ]);

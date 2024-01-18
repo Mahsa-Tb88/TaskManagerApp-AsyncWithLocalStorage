@@ -61,22 +61,40 @@ async function getUserById(id) {
   }
 }
 
-async function createUser(user) {
+async function createUser(
+  firstname,
+  lastname,
+  phone,
+  province,
+  avatarURL,
+  description
+) {
   const users = await getAllUsers();
   if (Math.random() > successRate) {
     return serverError();
   }
+  let id = null;
   if (users.length) {
-    user.id = users[users.length - 1].id + 1;
+    id = users[users.length - 1].id + 1;
   } else {
-    user.id = 1;
+    id = 1;
   }
-  users.push(user);
+  const newUser = {
+    id,
+    firstname,
+    lastname,
+    phone,
+    province,
+    avatarURL,
+    description,
+  };
+  users.push(newUser);
   localStorage.users = JSON.stringify(users);
+
   return {
     success: true,
-    body: user,
-    message: "Created Successfully",
+    body: users,
+    message: "New User Added Successfully",
     code: 201,
   };
 }
@@ -86,7 +104,6 @@ async function updateUser(user) {
   if (Math.random() > successRate) {
     return serverError();
   }
-
   const newUsers = users.map((u) => {
     if (u.id == parseInt(user.id)) {
       return user;
@@ -109,7 +126,7 @@ async function deleteUser(id) {
     return serverError();
   }
 
-  const newUsers = users.filter((user) => user.id == parseInt(id));
+  const newUsers = users.filter((user) => user.id !== parseInt(id));
   localStorage.users = JSON.stringify(newUsers);
   if (users.length > newUsers.length) {
     return {

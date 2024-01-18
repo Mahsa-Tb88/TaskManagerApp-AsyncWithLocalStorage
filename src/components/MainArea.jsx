@@ -16,12 +16,8 @@ export default function MainArea() {
   function addUserHandler() {
     if (state.pageTitle == "Home") {
       dispatch({ type: "addUser", payload: true });
-    } else if (state.pageTitle == "Create New User") {
+    } else if (state.pageTitle !== "Home") {
       dispatch({ type: "backToHome", payload: false });
-      navigate("/");
-    } else if (state.pageTitle == "Info User") {
-      dispatch({ type: "backToHome", payload: false });
-
       navigate("/");
     }
   }
