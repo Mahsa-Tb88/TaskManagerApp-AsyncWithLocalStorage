@@ -27,6 +27,8 @@ export default function TableUser() {
   ];
   if (params.id) {
     useEffect(() => {
+      dispatch({ type: "setPageTitle", payload: "Edit User" });
+      // document.title = "User Manager App";
       const timeOut = setTimeout(fetchGetUser, 20);
       return () => clearTimeout(timeOut);
     }, []);
@@ -44,6 +46,10 @@ export default function TableUser() {
       setValue("province", listOfProvince[result.body.province]);
       setValue("desc", result.body.description);
       setValue("image", result.body.avatarURL);
+      dispatch({
+        type: "setSingleLoadingError",
+        payload: false,
+      });
     } else {
       dispatch({
         type: "setSingleLoadingError",

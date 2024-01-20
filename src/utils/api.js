@@ -1,4 +1,4 @@
-const successRate = 0.92;
+const successRate = 0.52;
 async function getAllUsers() {
   await wait(1000);
   try {
@@ -39,7 +39,6 @@ async function getUsers(search = "") {
 }
 
 async function getUserById(id) {
-  console.log("api,get user by id");
   const users = await getAllUsers();
   if (Math.random() > successRate) {
     return serverError();

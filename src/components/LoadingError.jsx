@@ -3,8 +3,6 @@ import { UseUserContext } from "../context/AppContext";
 import { Link } from "react-router-dom";
 
 export default function ({ reload }) {
-  console.log("yyy")
-  console.log(reload);
   const { state } = UseUserContext();
   return (
     <div className="text-center">

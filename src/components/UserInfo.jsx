@@ -62,10 +62,7 @@ export default function UserInfo() {
         <div className="d-flex justify-content-start align-items-center">
           <img className="w-25 rounded-circle me-5" src={user.avatarURL} />
           <div>
-            <p className="fs-4 mb-4">
-              {user.firstname}
-              {user.lastname}
-            </p>
+            <p className="fs-4 mb-4">{user.firstname + " " + user.lastname}</p>
             <div className="d-flex justify-content-between align-items-center">
               <button
                 className="btn-delete me-3"

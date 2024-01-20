@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
+import { UseUserContext } from "../context/AppContext";
 
 export default function Welcome() {
+  const { dispatch } = UseUserContext();
   useEffect(() => {
+    dispatch({ type: "setPageTitle", payload: "Home" });
     document.title = "User Manager App";
   }, []);
   return (
