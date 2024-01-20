@@ -2,22 +2,21 @@ import React, { useEffect } from "react";
 import { FaUserPlus } from "react-icons/fa6";
 import { HiArrowUturnLeft } from "react-icons/hi2";
 import { UseUserContext } from "../context/AppContext";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 export default function MainArea() {
   const { state, dispatch } = UseUserContext();
   const navigate = useNavigate();
   const location = useLocation();
   useEffect(() => {
     if (location.pathname == "/newUser") {
-      state.pageTitle = "Create New User";
-      state.singleLoadingError = true;
+      dispatch({ type: "setPageTitle", payload: "Create New User" });
     }
   }, []);
   function addUserHandler() {
     if (state.pageTitle == "Home") {
-      dispatch({ type: "addUser", payload: true });
+      dispatch({ type: "setPageTitle", payload: "Create New User" });
     } else if (state.pageTitle !== "Home") {
-      dispatch({ type: "backToHome", payload: false });
+      dispatch({ type: "setPageTitle", payload: "Home" });
       navigate("/");
     }
   }

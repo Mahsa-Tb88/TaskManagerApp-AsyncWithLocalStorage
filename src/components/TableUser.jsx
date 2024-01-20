@@ -36,7 +36,7 @@ export default function TableUser() {
   async function fetchGetUser() {
     dispatch({ type: "setPageTitle", payload: "Edit User" });
     const result = await getUserById(id);
-    console.log(result.body.province);
+    console.log(result.body);
     if (result.success) {
       setValue("name", result.body.firstname);
       setValue("family", result.body.lastname);
@@ -196,7 +196,13 @@ export default function TableUser() {
           <div className="d-flex  justify-content-center align-items-center">
             <label className="mb-1 label">Address of Image</label>
             <img
-              src={watch("image")}
+              src={
+                params.id
+                  ? watch("image")
+                  : watch("image") == "https://i.pravatar.cc/300?img="
+                  ? noAvatar
+                  : watch("image")
+              }
               width="40"
               className="rounded-circle img"
             />

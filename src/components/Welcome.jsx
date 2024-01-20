@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 export default function Welcome() {
+  useEffect(() => {
+    document.title = "User Manager App";
+  }, []);
   return (
     <div className="text-center mt-5">
       <h1>Welcome to User Manager App</h1>

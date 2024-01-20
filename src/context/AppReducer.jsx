@@ -7,10 +7,10 @@ export function userReducer(state, action) {
       return { ...state, users: payload, isMultiLoading: false };
     case "setMultiLoadingError":
       return { ...state, multiLoadingError: payload };
-    case "addUser":
+    case "setPageTitle":
       return {
         ...state,
-        pageTitle: "Create New User",
+        pageTitle: payload,
       };
     case "backToHome":
       return { ...state, singleLoadingError: payload, pageTitle: "Home" };

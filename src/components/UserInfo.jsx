@@ -3,9 +3,12 @@ import { toast } from "react-toastify";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { UseUserContext } from "../context/AppContext";
 import { deleteUser, getAllUsers, getUserById, updateUser } from "../utils/api";
+import Loading from "./Loading";
+import LoadingError from "./LoadingError";
 
 export default function UserInfo() {
   const { state, dispatch } = UseUserContext();
+  const [loaded, setLoaded] = useState(false);
   const params = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -13,16 +16,19 @@ export default function UserInfo() {
 
   useEffect(() => {
     dispatch({ type: "setPageTitle", payload: "Info User" });
+    document.title = "User Manager App";
 
     const timeOut = setTimeout(fetchGetUser, 1000);
     return () => clearTimeout(timeOut);
   }, [params.id]);
 
   async function fetchGetUser() {
+    setLoaded(false);
     dispatch({ type: "setIsSingleLoading", payload: true });
     const result = await getUserById(params.id);
     if (result.success) {
       setUser(result.body);
+      dispatch({ type: "setSingleLoadingError", payload: false });
     } else {
       dispatch({
         type: "setSingleLoadingError",
@@ -30,24 +36,15 @@ export default function UserInfo() {
       });
     }
     dispatch({ type: "setIsSingleLoading", payload: false });
+    setLoaded(true);
   }
   let content = "";
 
   if (state.isSingleLoading) {
-    content = (
-      <div className="d-flex flex-column justify-content-center align-items-center">
-        <span>on loading...</span>
-        <span className="spinner-grow text-primary"></span>
-      </div>
-    );
+    content = <Loading />;
   } else if (state.singleLoadingError) {
-    content = (
-      <div className="d-flex flex-column justify-content-between align-items-center">
-        <span className="fs-4">{state.singleLoadingError.message}</span>
-        <button className="btn btn-primary mt-5">Try again</button>
-      </div>
-    );
-  } else {
+    content = <LoadingError reload={fetchGetUser} />;
+  } else if (loaded) {
     content = (
       <div>
         <div className="d-flex justify-content-start align-items-center">
@@ -93,18 +90,17 @@ export default function UserInfo() {
   }
   const id = params.id;
   async function deleteUserHandler(id) {
+    if (!confirm("Are you sure?")) {
+      return;
+    }
     const result = await deleteUser(id);
     if (result.success) {
       dispatch({ type: "deleteUser", payload: result.body });
+      toast.success(result.message);
+      navigate("/", { replace: true });
     } else {
-      dispatch({
-        type: "setSingleLoadingError",
-        payload: { message: result.message, code: result.code },
-      });
+      toast.error(result.message);
     }
-
-    navigate("/");
-    toast.success("Deleted Successfully!");
   }
   async function editUserHandler(id) {
     dispatch({ type: "setPageTitle", payload: "Edit User" });
