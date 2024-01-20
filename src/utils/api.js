@@ -39,6 +39,7 @@ async function getUsers(search = "") {
 }
 
 async function getUserById(id) {
+  console.log("api,get user by id");
   const users = await getAllUsers();
   if (Math.random() > successRate) {
     return serverError();

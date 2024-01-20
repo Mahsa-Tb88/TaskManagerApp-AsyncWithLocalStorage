@@ -13,12 +13,24 @@ export default function UserInfo() {
   const navigate = useNavigate();
   const location = useLocation();
   const [user, setUser] = useState({});
+  const listOfProvince = [
+    "British Columbia",
+    "Alberta",
+    "Manitoba",
+    "New Brunswick",
+    "Nova Scotia",
+    "Ontario",
+    "Newfoundland and Labrador",
+    "Prince Edward Island",
+    "Quebec",
+    "Saskatchewan",
+  ];
 
   useEffect(() => {
     dispatch({ type: "setPageTitle", payload: "Info User" });
     document.title = "User Manager App";
 
-    const timeOut = setTimeout(fetchGetUser, 1000);
+    const timeOut = setTimeout(fetchGetUser, 20);
     return () => clearTimeout(timeOut);
   }, [params.id]);
 
@@ -78,17 +90,16 @@ export default function UserInfo() {
           </div>
           <div className="p-2 border-bottom section ">
             <span className="fs-5">Province:</span>
-            <span className="fs-5 ms-4">{user.province}</span>
+            <span className="fs-5 ms-4">{listOfProvince[user.province]}</span>
           </div>
           <div className="p-2 border-bottom section ">
             <span className="fs-5">Description:</span>
-            <p className="mt-2 ms-4 desc">{user.desc}</p>
+            <p className="mt-2 ms-4 desc">{user.description}</p>
           </div>
         </div>
       </div>
     );
   }
-  const id = params.id;
   async function deleteUserHandler(id) {
     if (!confirm("Are you sure?")) {
       return;

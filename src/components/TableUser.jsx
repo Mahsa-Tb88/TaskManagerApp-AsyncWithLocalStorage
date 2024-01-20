@@ -5,8 +5,12 @@ import { UseUserContext } from "../context/AppContext";
 import noAvatar from "../assets/image/no-avatar.png";
 import { createUser, getUserById, updateUser } from "../utils/api";
 import { useNavigate, useParams } from "react-router-dom";
+import Loading from "./Loading";
+import LoadingError from "./LoadingError";
 export default function TableUser() {
   const { state, dispatch } = UseUserContext();
+  const [loaded, setLoaded] = useState(false);
+
   const params = useParams();
   const navigate = useNavigate();
   const listOfProvince = [
@@ -26,17 +30,13 @@ export default function TableUser() {
       const timeOut = setTimeout(fetchGetUser, 20);
       return () => clearTimeout(timeOut);
     }, []);
-
-    useEffect(() => {
-      dispatch({ type: "setIsSingleLoading", payload: true });
-    }, []);
   }
 
   const id = params.id;
   async function fetchGetUser() {
-    dispatch({ type: "setPageTitle", payload: "Edit User" });
+    setLoaded(false);
+    dispatch({ type: "setIsSingleLoading", payload: true });
     const result = await getUserById(id);
-    console.log(result.body);
     if (result.success) {
       setValue("name", result.body.firstname);
       setValue("family", result.body.lastname);
@@ -45,9 +45,13 @@ export default function TableUser() {
       setValue("desc", result.body.description);
       setValue("image", result.body.avatarURL);
     } else {
-      // dispatch({type:"singleLoadingError" ,payload:})
+      dispatch({
+        type: "setSingleLoadingError",
+        payload: { message: result.message, code: result.code },
+      });
     }
     dispatch({ type: "setIsSingleLoading", payload: false });
+    setLoaded(true);
   }
   const { register, handleSubmit, watch, setValue, formState } = useForm({
     defaultValues: {
@@ -73,11 +77,18 @@ export default function TableUser() {
         description: data.desc,
       };
       const result = await updateUser(newUser);
-      dispatch({
-        type: "showNewListUser",
-        payload: result.body,
-      });
-      toast.success("User Updated successfully!");
+      if (result.success) {
+        dispatch({
+          type: "showNewListUser",
+          payload: result.body,
+        });
+        toast.success(result.message);
+      } else {
+        dispatch({
+          type: "setSingleLoadingError",
+          payload: { message: result.message, code: result.code },
+        });
+      }
     } else {
       const result = await createUser(
         data.name,
@@ -99,20 +110,10 @@ export default function TableUser() {
 
   let content = "";
   if (state.isSingleLoading) {
-    content = (
-      <div className="d-flex flex-column justify-content-center align-items-center">
-        <span>on loading...</span>
-        <span className="spinner-grow text-primary"></span>
-      </div>
-    );
+    content = <Loading />;
   } else if (state.singleLoadingError) {
-    content = (
-      <div className="d-flex flex-column justify-content-between align-items-center">
-        <span className="fs-4">{state.singleLoadingError.message}</span>
-        <button className="btn btn-primary mt-5">Try again</button>
-      </div>
-    );
-  } else {
+    content = <LoadingError reload={fetchGetUser} />;
+  } else if (loaded) {
     content = (
       <div className="table">
         <div className="d-flex justify-content-between align-items-center mb-3 ">

@@ -3,10 +3,12 @@ import { UseUserContext } from "../context/AppContext";
 import { Link } from "react-router-dom";
 
 export default function ({ reload }) {
+  console.log("yyy")
+  console.log(reload);
   const { state } = UseUserContext();
   return (
-    <div>
-      <h3>{state.singleLoadingError.message}</h3>
+    <div className="text-center">
+      <h3 className="mb-5">{state.singleLoadingError.message}</h3>
       {state.singleLoadingError.code == 404 ? (
         <Link to="/" className="btn btn-primary">
           Back to Home
