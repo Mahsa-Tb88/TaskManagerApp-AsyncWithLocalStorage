@@ -8,7 +8,7 @@ export default function MainArea() {
   const navigate = useNavigate();
   const location = useLocation();
   useEffect(() => {
-    if (location.pathname == "/newUser") {
+    if (location.pathname == "/user/newUser") {
       dispatch({ type: "setPageTitle", payload: "Create New User" });
     }
   }, []);
@@ -35,7 +35,7 @@ export default function MainArea() {
           ) : (
             <Link
               className="btnAdd text-white"
-              to="/newUser"
+              to="/user/newUser"
               onClick={() => addUserHandler()}
             >
               Add User
