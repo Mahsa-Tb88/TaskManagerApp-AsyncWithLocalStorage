@@ -22,7 +22,9 @@ export function userReducer(state, action) {
       return { ...state, users: payload, pageTitle: "Home" };
     case "setPageTitle":
       return { ...state, pageTitle: payload };
-    case "showNewListUser":
+    case "createNewUser":
+      return { ...state, users: [...state.users, payload] };
+    case "updateUser":
       return { ...state, users: payload };
   }
   throw new Error("Invalid Action");

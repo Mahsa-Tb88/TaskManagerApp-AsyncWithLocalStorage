@@ -87,7 +87,9 @@ export default function UserInfo() {
           </div>
           <div className="p-2 border-bottom section ">
             <span className="fs-5">Province:</span>
-            <span className="fs-5 ms-4">{listOfProvince[user.province]}</span>
+            <span className="fs-5 ms-4">
+              {listOfProvince[user.province] || user.province}
+            </span>
           </div>
           <div className="p-2 border-bottom section ">
             <span className="fs-5">Description:</span>

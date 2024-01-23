@@ -116,10 +116,7 @@ export default function TableUser() {
         dispatch({ type: "setPageTitle", payload: "Home" });
         dispatch({ type: "setSingleLoadingError", payload: false });
       } else {
-        dispatch({
-          type: "setSingleLoadingError",
-          payload: { message: result.message, code: result.code },
-        });
+        toast.error(result.message);
       }
       dispatch({ type: "setIsSingleLoading", payload: false });
     }

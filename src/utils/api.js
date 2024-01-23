@@ -1,4 +1,4 @@
-const successRate = 0.52;
+const successRate = 0.92;
 async function getAllUsers() {
   await wait(1000);
   try {
@@ -61,39 +61,24 @@ async function getUserById(id) {
   }
 }
 
-async function createUser(
-  firstname,
-  lastname,
-  phone,
-  province,
-  avatarURL,
-  description
-) {
+async function createUser(user) {
   const users = await getAllUsers();
   if (Math.random() > successRate) {
     return serverError();
   }
-  let id = null;
+  console.log(user.id);
   if (users.length) {
-    id = users[users.length - 1].id + 1;
+    user.id = users[users.length - 1].id + 1;
   } else {
-    id = 1;
+    user.id = 1;
   }
-  const newUser = {
-    id,
-    firstname,
-    lastname,
-    phone,
-    province,
-    avatarURL,
-    description,
-  };
-  users.push(newUser);
+  console.log(user);
+  users.push(user);
   localStorage.users = JSON.stringify(users);
 
   return {
     success: true,
-    body: users,
+    body: user,
     message: "New User Added Successfully",
     code: 201,
   };
