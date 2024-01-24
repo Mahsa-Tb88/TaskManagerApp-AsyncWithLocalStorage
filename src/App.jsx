@@ -9,7 +9,6 @@ export default function App() {
     <UseContextProvider>
       <div className="app d-flex justify-content-between align-items-baseline">
         <SideBar />
-
         <div className="w-75 px-2">
           <MainArea />
           <Outlet />

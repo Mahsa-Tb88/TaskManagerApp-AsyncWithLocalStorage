@@ -66,13 +66,11 @@ async function createUser(user) {
   if (Math.random() > successRate) {
     return serverError();
   }
-  console.log(user.id);
   if (users.length) {
     user.id = users[users.length - 1].id + 1;
   } else {
     user.id = 1;
   }
-  console.log(user);
   users.push(user);
   localStorage.users = JSON.stringify(users);
 
