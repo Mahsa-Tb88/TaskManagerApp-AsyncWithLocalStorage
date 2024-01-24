@@ -161,3 +161,4 @@ export default function EditForm({ onSubmit, type, user }) {
     </form>
   );
 }
+
