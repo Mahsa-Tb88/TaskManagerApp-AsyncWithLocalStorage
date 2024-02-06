@@ -8,6 +8,15 @@ async function getAllUsers() {
   }
 }
 
+async function getAllBranches() {
+  await wait(1000);
+  try {
+    return JSON.parse(localStorage.branches);
+  } catch (e) {
+    return [];
+  }
+}
+
 function serverError() {
   return {
     success: false,
@@ -16,8 +25,8 @@ function serverError() {
     code: 500,
   };
 }
-async function getUsers(search = "") {
-  const users = await getAllUsers();
+async function getBranches(search = "") {
+  const branches = await getAllBranches();
   if (Math.random > successRate) {
     return serverError();
   }
@@ -25,7 +34,28 @@ async function getUsers(search = "") {
     search = "";
   }
 
-  const filteresUsers = users.filter((user) => {
+  const filteresUsers = branches.filter((b) => {
+    return b.branch.toLowerCase().includes(search.toLocaleLowerCase());
+  });
+  return {
+    success: true,
+    body: filteresUsers,
+    message: "Done Successfully",
+    code: 200,
+  };
+}
+
+async function getUsers(search = "", branch) {
+  const users = await getAllUsers();
+  if (Math.random > successRate) {
+    return serverError();
+  }
+  if (!search) {
+    search = "";
+  }
+  let filteresUsers = users.filter((user) => user.branch == branch);
+
+  filteresUsers = users.filter((user) => {
     return (user.firstname + " " + user.lastname)
       .toLowerCase()
       .includes(search.toLocaleLowerCase());
@@ -82,6 +112,31 @@ async function createUser(user) {
   };
 }
 
+async function createBranch(branch) {
+  if (Math.random() > successRate) {
+    return serverError();
+  }
+
+  const branches = await getAllBranches();
+  if (!branches.find((b) => b.id == branch.id)) {
+    branches.push(branch);
+    localStorage.branches = JSON.stringify(branches);
+    return {
+      success: true,
+      body: branches,
+      message: "New branch Added Successfully",
+      code: 201,
+    };
+  } else {
+    return {
+      success: false,
+      body: null,
+      message: "This branch has already had",
+      code: 404,
+    };
+  }
+}
+
 async function updateUser(user) {
   const users = await getAllUsers();
   if (Math.random() > successRate) {
@@ -130,9 +185,12 @@ async function deleteUser(id) {
 
 export {
   getAllUsers,
+  getAllBranches,
+  getBranches,
   getUsers,
   getUserById,
   createUser,
+  createBranch,
   updateUser,
   deleteUser,
 };

@@ -5,6 +5,8 @@ export function userReducer(state, action) {
       return { ...state, isMultiLoading: payload };
     case "setUsers":
       return { ...state, users: payload, isMultiLoading: false };
+    case "setBranches":
+      return { ...state, branches: payload, isMultiLoading: false };
     case "setMultiLoadingError":
       return { ...state, multiLoadingError: payload };
     case "setPageTitle":
@@ -26,6 +28,9 @@ export function userReducer(state, action) {
       return { ...state, users: [...state.users, payload] };
     case "updateUser":
       return { ...state, users: payload };
+
+    case "createNewBranch":
+      return { ...state, branches: payload };
   }
   throw new Error("Invalid Action");
 }

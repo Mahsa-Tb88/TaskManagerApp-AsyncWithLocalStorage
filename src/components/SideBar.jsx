@@ -2,26 +2,29 @@ import React, { useEffect, useState } from "react";
 import UserItem from "./UserItem";
 import { UseUserContext } from "../context/AppContext";
 import { useSearchParams } from "react-router-dom";
-import { getUsers } from "../utils/api";
+import { getAllBranches, getBranches, getUsers } from "../utils/api";
+import ListBranch from "./ListBranch";
 
 export default function UserList() {
   const { state, dispatch } = UseUserContext();
   const [searchParams, setSearchParams] = useSearchParams();
   const [isFirstLoading, setIsFirstLoading] = useState(true);
 
-  useEffect(() => {
-    if (isFirstLoading) {
-      setIsFirstLoading(false);
-      return;
-    }
-    const timeOut = setTimeout(fetchUsers, 1000);
-    return () => clearTimeout(timeOut);
-  }, [searchParams]);
-  async function fetchUsers() {
+  // useEffect(() => {
+  //   if (isFirstLoading) {
+  //     setIsFirstLoading(false);
+  //     return;
+  //   }
+  //   const timeOut = setTimeout(fetchUsers, 1000);
+  //   return () => clearTimeout(timeOut);
+  // }, [searchParams]);
+  
+  async function fetchBranches() {
     dispatch({ type: "setIsMultiLoading", payload: true });
-    const result = await getUsers(searchParams.get("q"));
+    const result = await getBranches(searchParams.get("q"));
+    console.log(result);
     if (result.success) {
-      dispatch({ type: "setUsers", payload: result.body });
+      dispatch({ type: "setBranches", payload: result.body });
     } else {
       dispatch({
         type: "setMultiLoadingError",
@@ -53,7 +56,9 @@ export default function UserList() {
     content = (
       <div>
         <span>{state.multiLoadingError.message}</span>
-        <button className="btn btn-primary">Try again</button>
+        <button className="btn btn-primary" onClick={fetchBranches}>
+          Try again
+        </button>
       </div>
     );
   } else if (!state.users.length) {
@@ -61,11 +66,13 @@ export default function UserList() {
       <p className="bg-primary mt-3 p-2 text-white fs-5">There is no users</p>
     );
   } else {
-    content = state.users.map((user) => <UserItem key={user.id} user={user} />);
+    content = state.branches.map((branch) => (
+      <ListBranch key={branch.id} branch={branch} />
+    ));
   }
 
   return (
-    <div className="w-25 text-center py-4 userList">
+    <div className="w-25 text-center py-4 px-3 userList">
       <div className="inputSearch">
         <input
           type="text"
@@ -76,8 +83,10 @@ export default function UserList() {
         />
       </div>
       <div className="list">
-        <h2 className="fs-3 py-4 title">User List</h2>
-        {content}
+        <h2 className="fs-3 py-4 title">Branch List</h2>
+        <div className="d-flex flex-column justify-content-center align-items-center">
+          {content}
+        </div>
       </div>
     </div>
   );

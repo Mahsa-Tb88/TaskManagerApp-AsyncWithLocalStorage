@@ -7,6 +7,7 @@ const users = [
     province: 1,
     avatarURL: "https://i.pravatar.cc/300?img=4",
     description: "Hi hOssein ",
+    branch: "first_group",
   },
   {
     id: 2,
@@ -16,6 +17,7 @@ const users = [
     province: 1,
     avatarURL: "https://i.pravatar.cc/300?img=2",
     description: "Hi Hamid ",
+    branch: "second_group",
   },
   {
     id: 3,
@@ -25,6 +27,7 @@ const users = [
     province: 6,
     avatarURL: "https://i.pravatar.cc/300?img=3",
     description: "Hi saeed ",
+    branch: "first_group",
   },
   {
     id: 4,
@@ -34,6 +37,8 @@ const users = [
     province: 7,
     avatarURL: "https://i.pravatar.cc/300?img=1",
     description: "Hi samaneh ",
+    branch: "second_group",
+
   },
   {
     id: 5,
@@ -43,6 +48,7 @@ const users = [
     province: 3,
     avatarURL: "https://i.pravatar.cc/300?img=5",
     description: " Hi soosan",
+    branch: "second_group",
   },
   {
     id: 6,
@@ -52,6 +58,7 @@ const users = [
     province: 8,
     avatarURL: "https://i.pravatar.cc/300?img=6",
     description: " Hi Farhan",
+    branch: "first_group",
   },
   {
     id: 7,
@@ -61,6 +68,7 @@ const users = [
     province: 5,
     avatarURL: "https://i.pravatar.cc/300?img=7",
     description: " Hi Ali",
+    branch: "first_group",
   },
   {
     id: 8,
@@ -70,6 +78,7 @@ const users = [
     province: 6,
     avatarURL: "https://i.pravatar.cc/300?img=8",
     description: "Hi Kamran",
+    branch: "second_group",
   },
   {
     id: 9,
@@ -79,6 +88,7 @@ const users = [
     province: 9,
     avatarURL: "https://i.pravatar.cc/300?img=9",
     description: "hi Nahid",
+    branch: "first_group",
   },
 ];
 

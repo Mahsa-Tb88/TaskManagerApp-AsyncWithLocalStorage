@@ -6,6 +6,8 @@ import UserInfo from "../components/UserInfo";
 import NotFound from "../components/NotFound";
 import UserCreate from "../components/UserCreate";
 import UserEdit from "../components/UserEdit";
+import Createbranch from "../components/Createbranch";
+import Branch from "../components/Branch";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +25,14 @@ const router = createBrowserRouter([
           },
           { path: ":id", element: <UserInfo /> },
           { path: ":id/edit", element: <UserEdit /> },
+        ],
+      },
+      {
+        path: "branch",
+        children: [
+          { index: true, element: <Welcome /> },
+          { path: "newBranch", element: <Createbranch /> },
+          { path: ":BranchName", element: <Branch /> },
         ],
       },
       { path: "*", element: <NotFound /> },
