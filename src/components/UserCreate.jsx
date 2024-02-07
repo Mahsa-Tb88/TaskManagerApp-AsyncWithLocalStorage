@@ -12,6 +12,7 @@ export default function UserCreate() {
     dispatch({ type: "setPageTitle", payload: "Create User" });
   }, []);
   async function handleSubmit(data) {
+    console.log(data);
     const result = await createUser(data);
     if (result.success) {
       dispatch({ type: "createNewUser", payload: result.body });

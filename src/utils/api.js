@@ -33,9 +33,9 @@ async function getBranches(search = "") {
   if (!search) {
     search = "";
   }
-
+  // console.log(branches);
   const filteresUsers = branches.filter((b) => {
-    return b.branch.toLowerCase().includes(search.toLocaleLowerCase());
+    return b.branchName.toLowerCase().includes(search.toLocaleLowerCase());
   });
   return {
     success: true,
@@ -53,13 +53,17 @@ async function getUsers(search = "", branch) {
   if (!search) {
     search = "";
   }
-  let filteresUsers = users.filter((user) => user.branch == branch);
-
-  filteresUsers = users.filter((user) => {
+  
+  // console.log(branch);
+  // console.log(users);
+  const filteresUserBranch = users.filter((user) => user.branch == branch);
+  // console.log(filteresUserBranch);
+  const filteresUsers = filteresUserBranch.filter((user) => {
     return (user.firstname + " " + user.lastname)
       .toLowerCase()
       .includes(search.toLocaleLowerCase());
   });
+  // console.log(filteresUsers);
   return {
     success: true,
     body: filteresUsers,
@@ -113,12 +117,22 @@ async function createUser(user) {
 }
 
 async function createBranch(branch) {
+  const branches = await getAllBranches();
+
   if (Math.random() > successRate) {
     return serverError();
   }
+  if (branches.length) {
+    branch.id = branches[branches.length - 1].id + 1;
+  } else {
+    branch.id = 1;
+  }
 
-  const branches = await getAllBranches();
-  if (!branches.find((b) => b.id == branch.id)) {
+  if (
+    !branches.find(
+      (b) => b.branchName.toLowerCase() == branch.branchName.toLowerCase()
+    )
+  ) {
     branches.push(branch);
     localStorage.branches = JSON.stringify(branches);
     return {

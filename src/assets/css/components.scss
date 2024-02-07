@@ -9,21 +9,25 @@
   color: #fff;
   font-weight: bold;
 }
-.branch {
+.branchList {
   .linkBranch {
-    text-decoration: none;
     padding: 15px 0;
-    width: 250px;
     color: #fff;
     background-color: rgb(153, 153, 250);
     margin-bottom: 20px;
+    border: none;
+    display: inline-block;
+    width:200px;
     border-bottom: 1px solid rgb(227, 225, 225);
     border-radius: 5px;
-    
   }
 
   .linkBranch:hover {
     background-color: rgb(109, 109, 242);
+  }
+  .activeBranch{
+    background-color: rgb(75, 75, 141);
+
   }
 }
 .userList {
@@ -116,6 +120,36 @@
   .errors {
     color: rgb(209, 16, 16);
     background-color: transparent;
+  }
+}
+
+.branch {
+  .img-user {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  .btn-list{
+
+  }
+  .user-row {
+    cursor: pointer;
+  }
+  .table-row {
+    vertical-align: middle;
+  }
+
+  .inputSearchUser {
+    background-color: #f0f0f0;
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 20px 0;
+    border-radius: 5px;
+  }
+  .searchUser {
+    border: 1px solid rgb(189, 188, 188);
+    border-radius: 3px;
+    padding: 5px;
   }
 }
 

@@ -2,8 +2,11 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import noAvatar from "../assets/image/no-avatar.png";
+import { UseUserContext } from "../context/AppContext";
 
 export default function EditForm({ onSubmit, type, user }) {
+  const { state, dispatch } = UseUserContext();
+
   const listOfProvince = [
     "British Columbia",
     "Alberta",
@@ -24,6 +27,7 @@ export default function EditForm({ onSubmit, type, user }) {
       phone: user ? user.phone : "",
       avatarURL: user ? user.avatarURL : "https://i.pravatar.cc/300?img=",
       province: user ? listOfProvince[user.province] : 1,
+      branch: user ? state.branches[user.branch] : 1,
       description: user ? user.description : "",
     },
   });
@@ -101,7 +105,7 @@ export default function EditForm({ onSubmit, type, user }) {
               })}
             >
               {listOfProvince.map((province) => (
-                <option key={province} value={province}>
+                <option key={province} value={listOfProvince.indexOf(province)}>
                   {province}
                 </option>
               ))}
@@ -138,6 +142,23 @@ export default function EditForm({ onSubmit, type, user }) {
             <p className="errors">{errors.avatarURL.message}</p>
           )}
         </div>
+        <div className="d-flex flex-column justify-content-center align-items-start mb-3">
+          <label className="mb-1 label">Branch</label>
+          <select
+            className="input"
+            {...register("branch", {
+              required: "Select the province",
+            })}
+          >
+            {state.branches.map((branch) => (
+              <option key={branch.id} value={branch.branchName}>
+                {branch.branchName}
+              </option>
+            ))}
+          </select>
+          {errors.branch && <p className="errors">{errors.branch.message}</p>}
+        </div>
+
         <div className="d-flex flex-column justify-content-start align-items-start mb-4">
           <label>Describe</label>
           <textarea
@@ -161,4 +182,3 @@ export default function EditForm({ onSubmit, type, user }) {
     </form>
   );
 }
-

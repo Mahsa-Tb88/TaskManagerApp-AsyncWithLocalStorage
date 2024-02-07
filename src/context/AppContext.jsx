@@ -44,22 +44,20 @@ function UseContextProvider({ children }) {
   const [state, dispatch] = useReducer(userReducer, {
     pageTitle: "Home",
     users: [],
-    branches: [
-      { id: 1, branchName: "first_group" },
-      { id: 2, branchName: "second_group" },
-    ],
+    branches: [],
     isSingleLoading: false,
     singleLoadingError: false,
     isMultiLoading: true,
     multiLoadingError: false,
-
     fetchUsers,
     fetchBranches,
   });
-  // useEffect(() => {
-  //   const timeOut = setTimeout(fetchBranches, 20);
-  //   return () => clearTimeout(timeOut);
-  // }, []);
+
+  useEffect(() => {
+    const timeOut = setTimeout(fetchBranches, 20);
+    return () => clearTimeout(timeOut);
+  }, []);
+
   useEffect(() => {
     const timeOut = setTimeout(fetchUsers, 20);
     return () => clearTimeout(timeOut);

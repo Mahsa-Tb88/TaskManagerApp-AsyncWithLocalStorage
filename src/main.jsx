@@ -5,6 +5,7 @@ import router from "./router/router.jsx";
 import { ToastContainer } from "react-toastify";
 
 import "./data/testData.js";
+import "./data/testBranches.jsx";
 import "./utils/globalConstants.js";
 import "./utils/globalFunction.js";
 

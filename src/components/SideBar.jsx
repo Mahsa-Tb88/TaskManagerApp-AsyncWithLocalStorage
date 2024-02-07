@@ -8,17 +8,8 @@ import ListBranch from "./ListBranch";
 export default function UserList() {
   const { state, dispatch } = UseUserContext();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [isFirstLoading, setIsFirstLoading] = useState(true);
 
-  // useEffect(() => {
-  //   if (isFirstLoading) {
-  //     setIsFirstLoading(false);
-  //     return;
-  //   }
-  //   const timeOut = setTimeout(fetchUsers, 1000);
-  //   return () => clearTimeout(timeOut);
-  // }, [searchParams]);
-  
+
   async function fetchBranches() {
     dispatch({ type: "setIsMultiLoading", payload: true });
     const result = await getBranches(searchParams.get("q"));
@@ -61,9 +52,11 @@ export default function UserList() {
         </button>
       </div>
     );
-  } else if (!state.users.length) {
+  } else if (!state.branches.length) {
     content = (
-      <p className="bg-primary mt-3 p-2 text-white fs-5">There is no users</p>
+      <p className="bg-primary mt-3 p-2 text-white fs-5 rounded-1">
+        There is no branches
+      </p>
     );
   } else {
     content = state.branches.map((branch) => (

@@ -1,15 +1,26 @@
 import React from "react";
-import {  NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { UseUserContext } from "../context/AppContext";
 
 export default function ListBranch({ branch }) {
-  console.log(branch);
+  const navigate = useNavigate();
+  const { state, dispatch } = UseUserContext();
+  function branchHandler(value) {
+    navigate(`/branch/${value}`);
+    dispatch({ type: "setPageTitle", payload: value });
+  }
+  const addClass = [
+    "linkBranch",
+    state.pageTitle == branch.branchName ? "activeBranch" : "",
+  ].join(" ");
   return (
-    <div className="branch">
-      <div className="linkBranch">
-        <NavLink className="link" to={`/branch/${branch.branchName}`}>
-          {branch.branchName}
-        </NavLink>
-      </div>
+    <div className="branchList">
+      <button
+        className={addClass}
+        onClick={() => branchHandler(branch.branchName)}
+      >
+        {branch.branchName}
+      </button>
     </div>
   );
 }

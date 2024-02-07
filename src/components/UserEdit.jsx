@@ -37,9 +37,9 @@ export default function UserEdit() {
     setLoaded(true);
   }
   async function handleSubmit(data) {
+    console.log(data);
     data.id = user.id;
     const result = await updateUser(data);
-    console.log(result);
     if (result.success) {
       dispatch({ type: "updateUser", payload: result.body });
       navigate("/user/" + user.id);
