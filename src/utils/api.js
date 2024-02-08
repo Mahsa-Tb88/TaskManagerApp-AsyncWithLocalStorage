@@ -33,7 +33,6 @@ async function getBranches(search = "") {
   if (!search) {
     search = "";
   }
-  // console.log(branches);
   const filteresUsers = branches.filter((b) => {
     return b.branchName.toLowerCase().includes(search.toLocaleLowerCase());
   });
@@ -53,17 +52,12 @@ async function getUsers(search = "", branch) {
   if (!search) {
     search = "";
   }
-  
-  // console.log(branch);
-  // console.log(users);
   const filteresUserBranch = users.filter((user) => user.branch == branch);
-  // console.log(filteresUserBranch);
   const filteresUsers = filteresUserBranch.filter((user) => {
     return (user.firstname + " " + user.lastname)
       .toLowerCase()
       .includes(search.toLocaleLowerCase());
   });
-  // console.log(filteresUsers);
   return {
     success: true,
     body: filteresUsers,
@@ -196,7 +190,57 @@ async function deleteUser(id) {
     };
   }
 }
+async function deleteBranch(id) {
+  const branches = await getAllBranches();
+  if (Math.random() > successRate) {
+    return serverError();
+  }
 
+  const newBranches = branches.filter((branch) => branch.id !== parseInt(id));
+  localStorage.branches = JSON.stringify(newBranches);
+  if (branches.length > newBranches.length) {
+    return {
+      success: true,
+      body: newBranches,
+      message: "Deleted Successfully",
+      code: 200,
+    };
+  } else {
+    return {
+      success: false,
+      body: null,
+      message: "There is not branch with this id",
+      code: 404,
+    };
+  }
+}
+async function deleteUsersInBranch(id) {
+  const branches = await getAllBranches();
+  const users = await getAllUsers();
+  if (Math.random() > successRate) {
+    return serverError();
+  }
+  const selectedBranch = branches.find((b) => b.id == id);
+  const selectedUsers = users.filter(
+    (user) => user.branch != selectedBranch.branchName
+  );
+  localStorage.users = JSON.stringify(selectedUsers);
+  if (users.length > selectedUsers.length) {
+    return {
+      success: true,
+      body: selectedUsers,
+      message: "Deleted Successfully",
+      code: 200,
+    };
+  } else {
+    return {
+      success: false,
+      body: null,
+      message: "There is not branch with this id",
+      code: 404,
+    };
+  }
+}
 export {
   getAllUsers,
   getAllBranches,
@@ -207,5 +251,7 @@ export {
   createBranch,
   updateUser,
   deleteUser,
+  deleteBranch,
+  deleteUsersInBranch,
 };
 //we can do it with jason server (REST API)

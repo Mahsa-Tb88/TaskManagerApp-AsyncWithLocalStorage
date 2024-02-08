@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { UseUserContext } from "../context/AppContext";
-import { deleteUser, getAllUsers, getUserById, updateUser } from "../utils/api";
+import { deleteUser, getUserById } from "../utils/api";
 import Loading from "./Loading";
 import LoadingError from "./LoadingError";
 

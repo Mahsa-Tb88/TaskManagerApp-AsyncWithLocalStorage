@@ -28,7 +28,6 @@ export function userReducer(state, action) {
       return { ...state, users: [...state.users, payload] };
     case "updateUser":
       return { ...state, users: payload };
-
     case "createNewBranch":
       return { ...state, branches: payload };
   }

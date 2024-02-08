@@ -1,21 +1,31 @@
 import React, { useEffect, useState } from "react";
-import UserItem from "./UserItem";
 import { UseUserContext } from "../context/AppContext";
 import { useSearchParams } from "react-router-dom";
-import { getAllBranches, getBranches, getUsers } from "../utils/api";
+import { getBranches } from "../utils/api";
 import ListBranch from "./ListBranch";
 
 export default function UserList() {
   const { state, dispatch } = UseUserContext();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [isFirstLoading, setIsFirstLoading] = useState(true);
 
+  useEffect(() => {
+    console.log("sidebar");
+    if (isFirstLoading) {
+      setIsFirstLoading(false);
+      return;
+    }
+    const timeOut = setTimeout(fetchBranches, 1000);
+    return () => clearTimeout(timeOut);
+  }, [searchParams.get("branch")]);
 
   async function fetchBranches() {
+    console.log("sidebar");
     dispatch({ type: "setIsMultiLoading", payload: true });
-    const result = await getBranches(searchParams.get("q"));
-    console.log(result);
+    const result = await getBranches(searchParams.get("branch"));
     if (result.success) {
       dispatch({ type: "setBranches", payload: result.body });
+      dispatch({ type: "setMultiLoadingError", payload: false });
     } else {
       dispatch({
         type: "setMultiLoadingError",
@@ -27,9 +37,10 @@ export default function UserList() {
     }
     dispatch({ type: "setIsMultiLoading", payload: false });
   }
+
   function searchHandler(e) {
     if (e.target.value) {
-      setSearchParams({ q: e.target.value });
+      setSearchParams({ branch: e.target.value });
     } else {
       setSearchParams({});
     }
@@ -72,12 +83,12 @@ export default function UserList() {
           placeholder="Search..."
           className="search"
           onChange={searchHandler}
-          value={searchParams.get("q") || ""}
+          value={searchParams.get("branch") || ""}
         />
       </div>
       <div className="list">
         <h2 className="fs-3 py-4 title">Branch List</h2>
-        <div className="d-flex flex-column justify-content-center align-items-center">
+        <div className="d-flex flex-column justify-content-center align-items-center mt-5">
           {content}
         </div>
       </div>

@@ -11,7 +11,7 @@
 }
 .branchList {
   .linkBranch {
-    padding: 15px 0;
+    // padding: 15px 0;
     color: #fff;
     background-color: rgb(153, 153, 250);
     margin-bottom: 20px;
@@ -24,6 +24,19 @@
 
   .linkBranch:hover {
     background-color: rgb(109, 109, 242);
+  }
+
+  .editBranch:hover{
+    color: #97baf0;
+  }
+  .removeBranch:hover{
+    color: #dc3545;
+  }
+
+  .btnBranch{
+    border: none;
+    background-color: transparent;
+    color: #fff;
   }
   .activeBranch{
     background-color: rgb(75, 75, 141);

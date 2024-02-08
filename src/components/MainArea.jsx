@@ -11,8 +11,8 @@ export default function MainArea() {
   useEffect(() => {
     if (location.pathname == "/user/newUser") {
       dispatch({ type: "setPageTitle", payload: "Create  User" });
-    } else if (location.pathname == "/newBranch") {
-      dispatch({ type: "setPageTitle", payload: "Create  Branch" });
+    } else if (location.pathname == "/branch/newBranch") {
+      dispatch({ type: "setPageTitle", payload: "Create Branch" });
     }
   }, []);
 
@@ -39,48 +39,50 @@ export default function MainArea() {
         <div className="d-flex justify-content-between align-items-center">
           <div className="me-3 btn-group fs-6 d-flex justify-content-between align-items-center">
             {state.pageTitle != "Home" && state.pageTitle != "Create Branch" ? (
-              <button
-                className="btnAdd text-white"
-                onClick={() => addUserHandler()}
-              >
-                Back
-              </button>
+              <div className="d-flex justify-content-between align-items-center">
+                <button
+                  className="btnAdd text-white"
+                  onClick={() => addUserHandler()}
+                >
+                  Back
+                </button>
+                <HiArrowUturnLeft />
+              </div>
             ) : (
-              <Link
-                className="btnAdd text-white"
-                to="/user/newUser"
-                onClick={() => addUserHandler()}
-              >
-                Add User
-              </Link>
-            )}
-            {state.pageTitle == "Create User" ? (
-              <HiArrowUturnLeft />
-            ) : (
-              <FaUserPlus />
+              <div className="d-flex justify-content-between align-items-center">
+                <Link
+                  className="btnAdd text-white"
+                  to="/user/newUser"
+                  onClick={() => addUserHandler()}
+                >
+                  Add User
+                </Link>
+                <FaUserPlus />
+              </div>
             )}
           </div>
           <div className="btn-group fs-6 d-flex justify-content-between align-items-center">
             {state.pageTitle == "Create Branch" ? (
-              <button
-                className="btnAdd text-white"
-                onClick={() => createBranchHandler()}
-              >
-                Back
-              </button>
+              <div className="d-flex justify-content-between align-items-center">
+                <button
+                  className="btnAdd text-white"
+                  onClick={() => createBranchHandler()}
+                >
+                  Back
+                </button>
+                <HiArrowUturnLeft />
+              </div>
             ) : (
-              <Link
-                className="btnAdd text-white"
-                to="/branch/newBranch"
-                onClick={() => createBranchHandler()}
-              >
-                Ceate Branch
-              </Link>
-            )}
-            {state.pageTitle == "Create Branch" ? (
-              <HiArrowUturnLeft />
-            ) : (
-              <FaFolder />
+              <div className="d-flex justify-content-between align-items-center">
+                <Link
+                  className="btnAdd text-white"
+                  to="/branch/newBranch"
+                  onClick={() => createBranchHandler()}
+                >
+                  Create Branch
+                </Link>
+                <FaFolder />
+              </div>
             )}
           </div>
         </div>

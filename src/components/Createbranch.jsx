@@ -10,7 +10,6 @@ export default function Createbranch() {
   const { handleSubmit, register, formState } = useForm({});
   const { errors, isSubmitting } = formState;
   const navigate = useNavigate();
-  console.log("fff");
 
   async function onSubmit(data) {
     console.log(data);

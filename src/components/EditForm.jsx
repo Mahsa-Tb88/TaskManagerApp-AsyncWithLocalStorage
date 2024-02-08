@@ -6,7 +6,6 @@ import { UseUserContext } from "../context/AppContext";
 
 export default function EditForm({ onSubmit, type, user }) {
   const { state, dispatch } = UseUserContext();
-
   const listOfProvince = [
     "British Columbia",
     "Alberta",
@@ -26,13 +25,12 @@ export default function EditForm({ onSubmit, type, user }) {
       lastname: user ? user.lastname : "",
       phone: user ? user.phone : "",
       avatarURL: user ? user.avatarURL : "https://i.pravatar.cc/300?img=",
-      province: user ? listOfProvince[user.province] : 1,
-      branch: user ? state.branches[user.branch] : 1,
+      province: user ? user.province : 1,
+      branch: user ? user.branch : 1,
       description: user ? user.description : "",
     },
   });
   const { errors, isSubmitting } = formState;
-
   return (
     <form className=" w-75 m-auto mt-5" onSubmit={handleSubmit(onSubmit)}>
       <div className="table">
@@ -151,7 +149,7 @@ export default function EditForm({ onSubmit, type, user }) {
             })}
           >
             {state.branches.map((branch) => (
-              <option key={branch.id} value={branch.branchName}>
+              <option key={branch.id} value={state.branches.indexOf[branch]}>
                 {branch.branchName}
               </option>
             ))}
@@ -182,3 +180,5 @@ export default function EditForm({ onSubmit, type, user }) {
     </form>
   );
 }
+
+//
