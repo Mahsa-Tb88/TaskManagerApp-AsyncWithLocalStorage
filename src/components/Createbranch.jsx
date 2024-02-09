@@ -1,25 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { createBranch } from "../utils/api";
+import { createBranch, updateBranch } from "../utils/api";
 import { UseUserContext } from "../context/AppContext";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 export default function Createbranch() {
   const { state, dispatch } = UseUserContext();
-  const { handleSubmit, register, formState } = useForm({});
-  const { errors, isSubmitting } = formState;
   const navigate = useNavigate();
+  const location = useLocation();
+  const params = useParams();
+  const selectedBranch = state.branches.find((b) => b.id == params.id);
+  const { handleSubmit, register, formState } = useForm({
+    defaultValues: { branch: params.id ? selectedBranch.branchName : "" },
+  });
+  const { errors, isSubmitting } = formState;
+
+  // useEffect(() => {
+  //   dispatch({ type: "setPageTitle", payload: "Rename Branch" });
+  // }, [params.id]);
 
   async function onSubmit(data) {
-    console.log(data);
-    const result = await createBranch({ branchName: data.branch });
-    if (result.success) {
-      dispatch({ type: "createNewBranch", payload: result.body });
-      toast.success(result.message);
-      navigate("/");
+    if (params.id) {
+      const result = await updateBranch({
+        id: params.id,
+        branchName: data.branch,
+      });
+      if (result.success) {
+        dispatch({ type: "createNewBranch", payload: result.body });
+        toast.success(result.message);
+        navigate("/");
+      } else {
+        toast.error(result.message);
+      }
     } else {
-      toast.error(result.message);
+      const result = await createBranch({ branchName: data.branch });
+      if (result.success) {
+        dispatch({ type: "createNewBranch", payload: result.body });
+        toast.success(result.message);
+        navigate("/");
+      } else {
+        toast.error(result.message);
+      }
     }
   }
   return (
@@ -43,8 +65,8 @@ export default function Createbranch() {
             })}
           />
           <small className="text-primary ">
-           * Your branch name must consist of alphabets only, without any spaces
-            or other symbols
+            * Your branch name must consist of alphabets only, without any
+            spaces or other symbols
           </small>
           {errors.name && <p className="errors">{errors.name.message}</p>}
         </div>
@@ -56,7 +78,9 @@ export default function Createbranch() {
             </button>
           ) : (
             <button type="submit" className="btn-submit">
-              create branch
+              {location.pathname == "/branch/renameBranch/" + `${params.id}`
+                ? "Rename Branch"
+                : "Create Branch"}
             </button>
           )}
         </div>

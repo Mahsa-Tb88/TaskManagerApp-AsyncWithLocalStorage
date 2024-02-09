@@ -165,6 +165,26 @@ async function updateUser(user) {
     code: 200,
   };
 }
+async function updateBranch(branch) {
+  const branches = await getAllBranches();
+  if (Math.random() > successRate) {
+    return serverError();
+  }
+  const newBranches = branches.map((b) => {
+    if (b.id == parseInt(branch.id)) {
+      return branch;
+    } else {
+      return b;
+    }
+  });
+  localStorage.branches = JSON.stringify(newBranches);
+  return {
+    success: true,
+    body: newBranches,
+    message: "Updated Successfully",
+    code: 200,
+  };
+}
 
 async function deleteUser(id) {
   const users = await getAllUsers();
@@ -221,11 +241,13 @@ async function deleteUsersInBranch(id) {
     return serverError();
   }
   const selectedBranch = branches.find((b) => b.id == id);
+  console.log(selectedBranch);
   const selectedUsers = users.filter(
     (user) => user.branch != selectedBranch.branchName
   );
+  console.log(selectedUsers);
   localStorage.users = JSON.stringify(selectedUsers);
-  if (users.length > selectedUsers.length) {
+  if (users.length >= selectedUsers.length) {
     return {
       success: true,
       body: selectedUsers,
@@ -250,6 +272,7 @@ export {
   createUser,
   createBranch,
   updateUser,
+  updateBranch,
   deleteUser,
   deleteBranch,
   deleteUsersInBranch,

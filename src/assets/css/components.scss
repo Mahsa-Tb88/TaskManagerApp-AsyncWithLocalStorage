@@ -10,37 +10,41 @@
   font-weight: bold;
 }
 .branchList {
-  .linkBranch {
-    // padding: 15px 0;
-    color: #fff;
-    background-color: rgb(153, 153, 250);
-    margin-bottom: 20px;
+  .btn-branch {
     border: none;
-    display: inline-block;
-    width:200px;
-    border-bottom: 1px solid rgb(227, 225, 225);
+    padding: 0;
+    margin-bottom: 20px;
+    background-color: rgb(195, 195, 253);
+    width: 200px;
+    padding: 10px 5px;
     border-radius: 5px;
+    color: #fff;
+  }
+  .linkBranch {
+    padding: 5px 10px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 17px;
   }
 
   .linkBranch:hover {
     background-color: rgb(109, 109, 242);
   }
-
-  .editBranch:hover{
+  .editBranch {
+    margin-bottom: 10px;
+  }
+  .editBranch:hover {
     color: #97baf0;
   }
-  .removeBranch:hover{
+  .removeBranch:hover {
     color: #dc3545;
   }
 
-  .btnBranch{
-    border: none;
-    background-color: transparent;
-    color: #fff;
-  }
-  .activeBranch{
+  .activeBranch {
     background-color: rgb(75, 75, 141);
-
   }
 }
 .userList {
@@ -142,8 +146,7 @@
     height: 50px;
     border-radius: 50%;
   }
-  .btn-list{
-
+  .btn-list {
   }
   .user-row {
     cursor: pointer;

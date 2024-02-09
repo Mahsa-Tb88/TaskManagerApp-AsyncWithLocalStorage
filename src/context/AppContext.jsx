@@ -37,6 +37,8 @@ function UseContextProvider({ children }) {
     singleLoadingError: false,
     isMultiLoading: true,
     multiLoadingError: false,
+
+    fetchBranches,
   });
 
   return (

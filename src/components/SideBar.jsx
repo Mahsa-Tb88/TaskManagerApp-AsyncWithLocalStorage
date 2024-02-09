@@ -88,7 +88,7 @@ export default function UserList() {
       </div>
       <div className="list">
         <h2 className="fs-3 py-4 title">Branch List</h2>
-        <div className="d-flex flex-column justify-content-center align-items-center mt-5">
+        <div className="d-flex flex-column  align-items-center mt-5">
           {content}
         </div>
       </div>

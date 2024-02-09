@@ -33,6 +33,7 @@ const router = createBrowserRouter([
           { index: true, element: <Welcome /> },
           { path: "newBranch", element: <Createbranch /> },
           { path: ":BranchName", element: <Branch /> },
+          { path: "renameBranch/:id", element: <Createbranch /> },
         ],
       },
       { path: "*", element: <NotFound /> },
