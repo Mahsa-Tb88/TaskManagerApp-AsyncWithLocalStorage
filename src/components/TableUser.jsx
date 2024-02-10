@@ -28,7 +28,6 @@ export default function TableUser() {
   if (params.id) {
     useEffect(() => {
       dispatch({ type: "setPageTitle", payload: "Edit User" });
-      // document.title = "User Manager App";
       const timeOut = setTimeout(fetchGetUser, 20);
       return () => clearTimeout(timeOut);
     }, []);

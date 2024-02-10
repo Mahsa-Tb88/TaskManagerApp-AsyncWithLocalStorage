@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { UseUserContext } from "../context/AppContext";
 import { FaEdit } from "react-icons/fa";
 import { FaRegTrashAlt } from "react-icons/fa";
@@ -8,13 +8,14 @@ import { deleteBranch, deleteUsersInBranch } from "../utils/api";
 
 export default function ListBranch({ branch }) {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams("");
   const { state, dispatch } = UseUserContext();
   function branchHandler(value) {
     navigate(`/branch/${value}`);
     dispatch({ type: "setPageTitle", payload: value });
   }
 
-  async function RemoveBranchHandler(id, value) {
+  async function RemoveBranchHandler(id) {
     if (!confirm("Are you sure?")) {
       return;
     }
@@ -34,8 +35,10 @@ export default function ListBranch({ branch }) {
       toast.error(resultOne.message);
     }
   }
-  function RenameBranchHandler(id) {
-    navigate("/branch/renameBranch/" + `${id}`);
+  async function RenameBranchHandler(id, branchName) {
+    navigate(
+      "/branch/renameBranch/" + `${id}` + "?renameBranch=" + `${branchName}`
+    );
   }
   const addClass = [
     "linkBranch",
@@ -51,10 +54,12 @@ export default function ListBranch({ branch }) {
           {branch.branchName}
         </div>
         <div className="d-flex flex-column justify-content-between align-items-center ">
-          <div onClick={() => RenameBranchHandler(branch.id)}>
+          <div
+            onClick={() => RenameBranchHandler(branch.id, branch.branchName)}
+          >
             <FaEdit className=" editBranch" />
           </div>
-          <div onClick={(e) => RemoveBranchHandler(branch.id, e.target)}>
+          <div onClick={(e) => RemoveBranchHandler(branch.id)}>
             <FaRegTrashAlt className="removeBranch" />
           </div>
         </div>

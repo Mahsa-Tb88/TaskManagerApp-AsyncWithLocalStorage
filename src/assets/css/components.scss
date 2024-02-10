@@ -14,7 +14,7 @@
     border: none;
     padding: 0;
     margin-bottom: 20px;
-    background-color: rgb(195, 195, 253);
+    background-color: #52525b;
     width: 200px;
     padding: 10px 5px;
     border-radius: 5px;
@@ -29,10 +29,13 @@
     font-weight: bold;
     font-size: 17px;
   }
-
   .linkBranch:hover {
-    background-color: rgb(109, 109, 242);
+    background-color: rgb(218, 218, 245);
   }
+  .activeBranch {
+    background-color: #0d6efd;
+  }
+  
   .editBranch {
     margin-bottom: 10px;
   }
@@ -42,11 +45,8 @@
   .removeBranch:hover {
     color: #dc3545;
   }
-
-  .activeBranch {
-    background-color: rgb(75, 75, 141);
-  }
 }
+
 .userList {
   background-color: #f7f7f7;
   .inputSearch {
@@ -103,6 +103,10 @@
     margin-right: 8px;
   }
 }
+.btn-group:hover{
+  background-color: #0a66ef;
+
+}
 
 .table {
   background-color: #f2f2f2;
@@ -146,8 +150,7 @@
     height: 50px;
     border-radius: 50%;
   }
-  .btn-list {
-  }
+
   .user-row {
     cursor: pointer;
   }
@@ -180,6 +183,9 @@
     border-radius: 3px;
     padding: 5px 8px;
   }
+  .btn-delete:hover {
+    background-color: #c42131;
+  }
 
   .btn-edit {
     outline: none;
@@ -189,6 +195,9 @@
     border-radius: 3px;
     padding: 5px 8px;
     text-decoration: none;
+  }
+  .btn-edit:hover {
+    background-color: #0563ef;
   }
 
   .section {

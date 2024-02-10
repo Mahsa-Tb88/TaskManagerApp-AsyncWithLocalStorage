@@ -3,22 +3,31 @@ import { useForm } from "react-hook-form";
 import { createBranch, updateBranch } from "../utils/api";
 import { UseUserContext } from "../context/AppContext";
 import { toast } from "react-toastify";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  useLocation,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 
 export default function Createbranch() {
   const { state, dispatch } = UseUserContext();
   const navigate = useNavigate();
   const location = useLocation();
   const params = useParams();
-  const selectedBranch = state.branches.find((b) => b.id == params.id);
-  const { handleSubmit, register, formState } = useForm({
-    defaultValues: { branch: params.id ? selectedBranch.branchName : "" },
-  });
-  const { errors, isSubmitting } = formState;
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  // useEffect(() => {
-  //   dispatch({ type: "setPageTitle", payload: "Rename Branch" });
-  // }, [params.id]);
+  useEffect(() => {
+    if (params.id) {
+      dispatch({
+        type: "setPageTitle",
+        payload: searchParams.get("renameBranch"),
+      });
+    }
+  }, [params.id]);
+  console.log(searchParams.get("renameBranch"));
+  const { handleSubmit, register, formState } = useForm({});
+  const { errors, isSubmitting } = formState;
 
   async function onSubmit(data) {
     if (params.id) {
@@ -52,6 +61,7 @@ export default function Createbranch() {
           <input
             type="text"
             className="input"
+            placeholder={params.id ? `${searchParams.get("renameBranch")}` : ""}
             {...register("branch", {
               required: "You must enter a name",
               minLength: {

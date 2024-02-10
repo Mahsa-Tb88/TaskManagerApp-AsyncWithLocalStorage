@@ -6,11 +6,17 @@ import { useSearchParams } from "react-router-dom";
 const userContext = createContext();
 
 function UseContextProvider({ children }) {
+
+
   const [searchParams, setSearchParams] = useSearchParams();
+
+  
   useEffect(() => {
     const timeOut = setTimeout(fetchBranches, 20);
     return () => clearTimeout(timeOut);
   }, []);
+
+
   async function fetchBranches() {
     console.log("app context");
     dispatch({ type: "setIsMultiLoading", payload: true });
@@ -29,6 +35,8 @@ function UseContextProvider({ children }) {
     }
     dispatch({ type: "setIsMultiLoading", payload: false });
   }
+
+
   const [state, dispatch] = useReducer(userReducer, {
     pageTitle: "Home",
     users: [],

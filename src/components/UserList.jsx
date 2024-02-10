@@ -59,7 +59,7 @@ export default function UserList({
     );
   } else {
     content = (
-      <div>
+      <div className="tableuserlist">
         <table className="table table-hover table-bordered text-center">
           <thead className="table-dark">
             <tr className="table-row">

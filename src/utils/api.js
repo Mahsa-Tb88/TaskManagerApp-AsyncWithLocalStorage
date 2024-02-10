@@ -117,7 +117,7 @@ async function createBranch(branch) {
     return serverError();
   }
   if (branches.length) {
-    branch.id = branches[branches.length - 1].id + 1;
+    branch.id = parseInt(branches[branches.length - 1].id) + 1;
   } else {
     branch.id = 1;
   }
@@ -165,18 +165,33 @@ async function updateUser(user) {
     code: 200,
   };
 }
-async function updateBranch(branch) {
+async function updateBranch(newbranch) {
+  
   const branches = await getAllBranches();
+  const users = await getAllUsers();
+
+
+  const selectedBranch = branches.find((b) => b.id == newbranch.id);
   if (Math.random() > successRate) {
     return serverError();
   }
   const newBranches = branches.map((b) => {
-    if (b.id == parseInt(branch.id)) {
-      return branch;
+    if (b.id == parseInt(newbranch.id)) {
+      return newbranch;
     } else {
       return b;
     }
   });
+
+  const newUsers = users.map((user) => {
+    if (user.branch == selectedBranch.branchName) {
+      user.branch = newbranch.branchName;
+      return user;
+    } else {
+      return user;
+    }
+  });
+  localStorage.users = JSON.stringify(newUsers);
   localStorage.branches = JSON.stringify(newBranches);
   return {
     success: true,
@@ -216,7 +231,7 @@ async function deleteBranch(id) {
     return serverError();
   }
 
-  const newBranches = branches.filter((branch) => branch.id !== parseInt(id));
+  const newBranches = branches.filter((branch) => branch.id != parseInt(id));
   localStorage.branches = JSON.stringify(newBranches);
   if (branches.length > newBranches.length) {
     return {
@@ -263,12 +278,42 @@ async function deleteUsersInBranch(id) {
     };
   }
 }
+async function getUsersInBranch(id) {
+  const branches = await getAllBranches();
+  const users = await getAllUsers();
+  if (Math.random() > successRate) {
+    return serverError();
+  }
+  const selectedBranch = branches.find((b) => b.id == id);
+  console.log(selectedBranch);
+  const selectedUsers = users.filter(
+    (user) => user.branch == selectedBranch.branchName
+  );
+  console.log(selectedUsers);
+  localStorage.users = JSON.stringify(selectedUsers);
+  if (users.length >= selectedUsers.length) {
+    return {
+      success: true,
+      body: selectedUsers,
+      message: "Deleted Successfully",
+      code: 200,
+    };
+  } else {
+    return {
+      success: false,
+      body: null,
+      message: "There is not branch with this id",
+      code: 404,
+    };
+  }
+}
 export {
   getAllUsers,
   getAllBranches,
   getBranches,
   getUsers,
   getUserById,
+  getUsersInBranch,
   createUser,
   createBranch,
   updateUser,
