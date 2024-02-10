@@ -23,7 +23,6 @@ export default function UserEdit() {
   async function fetchUserById() {
     dispatch({ type: "setIsSingleLoading", dispatch: true });
     const result = await getUserById(params.id);
-    console.log(result);
     if (result.success) {
       setUser(result.body);
       dispatch({ type: "setSingleLoadingError", payload: false });

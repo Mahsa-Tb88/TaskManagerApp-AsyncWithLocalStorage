@@ -10,7 +10,7 @@ export default function UserList() {
   const [isFirstLoading, setIsFirstLoading] = useState(true);
 
   useEffect(() => {
-    console.log("sidebar");
+    // console.log("sidebar");
     if (isFirstLoading) {
       setIsFirstLoading(false);
       return;

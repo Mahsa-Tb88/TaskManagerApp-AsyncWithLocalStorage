@@ -32,7 +32,7 @@ export default function EditForm({ onSubmit, type, user }) {
   });
   const { errors, isSubmitting } = formState;
   return (
-    <form className=" w-75 m-auto mt-5" onSubmit={handleSubmit(onSubmit)}>
+    <form className=" w-75 m-auto mt-5 bg-light px-4 py-1  rounded-2" onSubmit={handleSubmit(onSubmit)}>
       <div className="table">
         <div className="d-flex justify-content-between align-items-center mb-3 ">
           <div className="d-flex flex-column justify-content-center align-items-start ">
@@ -145,7 +145,7 @@ export default function EditForm({ onSubmit, type, user }) {
           <select
             className="input"
             {...register("branch", {
-              required: "Select the province",
+              required: "Select the branch",
             })}
           >
             {state.branches.map((branch) => (

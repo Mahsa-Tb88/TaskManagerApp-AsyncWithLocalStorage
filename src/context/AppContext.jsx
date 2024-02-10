@@ -18,7 +18,7 @@ function UseContextProvider({ children }) {
 
 
   async function fetchBranches() {
-    console.log("app context");
+    // console.log("app context");
     dispatch({ type: "setIsMultiLoading", payload: true });
     const result = await getBranches(searchParams.get("branch"));
     if (result.success) {

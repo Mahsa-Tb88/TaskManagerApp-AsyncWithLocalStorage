@@ -10,8 +10,12 @@ export default function Welcome() {
   return (
     <div className="text-center mt-5 welcome">
       <h1>Welcome to User Manager App</h1>
-      <p className="mt-5 welcome">Use Above Button For Adding User</p>
-      <p className="welcome">Use Left Menu For Observing and Editing User</p>
+      <p className="mt-5 welcome">
+        Use Above Button For Adding User and Adding Branch
+      </p>
+      <p className="welcome">
+        Use Left Menu For Observing and Editing Branch & User
+      </p>
     </div>
   );
 }

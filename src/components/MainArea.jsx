@@ -8,7 +8,7 @@ export default function MainArea() {
   const { state, dispatch } = UseUserContext();
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location.pathname);
+  // console.log(location.pathname);
   useEffect(() => {
     if (location.pathname == "/user/newUser") {
       dispatch({ type: "setPageTitle", payload: "Create  User" });

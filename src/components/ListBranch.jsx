@@ -20,7 +20,7 @@ export default function ListBranch({ branch }) {
       return;
     }
     const resultOne = await deleteUsersInBranch(id);
-    console.log(resultOne, resultOne.body);
+    // console.log(resultOne, resultOne.body);
     if (resultOne.success) {
       dispatch({ type: "setUsers", payload: resultOne.body });
       const result = await deleteBranch(id);

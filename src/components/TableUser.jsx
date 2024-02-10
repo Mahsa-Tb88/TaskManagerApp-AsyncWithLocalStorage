@@ -252,7 +252,7 @@ export default function TableUser() {
     );
   } else if (!loaded && !params.id) {
     content = (
-      <div className="table">
+      <div className="">
         <div className="d-flex justify-content-between align-items-center mb-3 ">
           <div className="d-flex flex-column justify-content-center align-items-start ">
             <label className="mb-1 label">Name</label>
@@ -373,7 +373,7 @@ export default function TableUser() {
   }
 
   return (
-    <form className=" w-75 m-auto mt-5" onSubmit={handleSubmit(onSubmit)}>
+    <form className=" w-75 m-auto mt-5 " onSubmit={handleSubmit(onSubmit)}>
       {content}
     </form>
   );

@@ -25,7 +25,7 @@ export default function Createbranch() {
       });
     }
   }, [params.id]);
-  console.log(searchParams.get("renameBranch"));
+  // console.log(searchParams.get("renameBranch"));
   const { handleSubmit, register, formState } = useForm({});
   const { errors, isSubmitting } = formState;
 
@@ -74,6 +74,8 @@ export default function Createbranch() {
               },
             })}
           />
+          {errors.branch && <p className="errors">{errors.branch.message}</p>}
+
           <small className="text-primary ">
             * Your branch name must consist of alphabets only, without any
             spaces or other symbols
