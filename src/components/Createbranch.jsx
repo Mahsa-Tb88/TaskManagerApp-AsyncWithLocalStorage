@@ -81,7 +81,6 @@ export default function Createbranch() {
             * Your branch name must consist of alphabets only, without any
             spaces or other symbols
           </small>
-          {errors.branch && <p className="errors">{errors.branch.message}</p>}
         </div>
 
         <div>
