@@ -111,8 +111,9 @@ async function createUser(user) {
 }
 
 async function createBranch(branch) {
+  console.log("create branch api");
   const branches = await getAllBranches();
-
+  console.log(branches);
   if (Math.random() > successRate) {
     return serverError();
   }
@@ -139,7 +140,7 @@ async function createBranch(branch) {
     return {
       success: false,
       body: null,
-      message: "This branch has already had",
+      message: "This Branch Already Exists!",
       code: 404,
     };
   }
@@ -173,30 +174,42 @@ async function updateBranch(newbranch) {
   if (Math.random() > successRate) {
     return serverError();
   }
-  const newBranches = branches.map((b) => {
-    if (b.id == parseInt(newbranch.id)) {
-      return newbranch;
-    } else {
-      return b;
-    }
-  });
+  const checkBranch = branches.find(
+    (b) => b.branchName == newbranch.branchName
+  );
+  if (!checkBranch) {
+    const newBranches = branches.map((b) => {
+      if (b.id == parseInt(newbranch.id)) {
+        return newbranch;
+      } else {
+        return b;
+      }
+    });
 
-  const newUsers = users.map((user) => {
-    if (user.branch == selectedBranch.branchName) {
-      user.branch = newbranch.branchName;
-      return user;
-    } else {
-      return user;
-    }
-  });
-  localStorage.users = JSON.stringify(newUsers);
-  localStorage.branches = JSON.stringify(newBranches);
-  return {
-    success: true,
-    body: newBranches,
-    message: "Updated Successfully",
-    code: 200,
-  };
+    const newUsers = users.map((user) => {
+      if (user.branch == selectedBranch.branchName) {
+        user.branch = newbranch.branchName;
+        return user;
+      } else {
+        return user;
+      }
+    });
+    localStorage.users = JSON.stringify(newUsers);
+    localStorage.branches = JSON.stringify(newBranches);
+    return {
+      success: true,
+      body: newBranches,
+      message: "Updated Successfully",
+      code: 200,
+    };
+  } else {
+    return {
+      success: false,
+      body: null,
+      message: "This Branch Already Exists!",
+      code: 404,
+    };
+  }
 }
 
 async function deleteUser(id) {

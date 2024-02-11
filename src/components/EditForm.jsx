@@ -33,7 +33,7 @@ export default function EditForm({ onSubmit, type, user }) {
   const { errors, isSubmitting } = formState;
   return (
     <form
-      className=" w-75 m-auto mt-5 bg-light px-4 rounded-2"
+      className=" w-75 m-auto mt-3 bg-light px-4 py-2 rounded-2"
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="table">

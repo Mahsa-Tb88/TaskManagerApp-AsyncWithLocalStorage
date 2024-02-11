@@ -10,6 +10,7 @@ export default function ListBranch({ branch }) {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams("");
   const { state, dispatch } = UseUserContext();
+  
   function branchHandler(value) {
     navigate(`/branch/${value}`);
     dispatch({ type: "setPageTitle", payload: value });

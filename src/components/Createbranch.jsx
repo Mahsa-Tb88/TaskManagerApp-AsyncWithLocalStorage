@@ -43,6 +43,7 @@ export default function Createbranch() {
         toast.error(result.message);
       }
     } else {
+      console.log("here");
       const result = await createBranch({ branchName: data.branch });
       if (result.success) {
         dispatch({ type: "createNewBranch", payload: result.body });
@@ -80,7 +81,7 @@ export default function Createbranch() {
             * Your branch name must consist of alphabets only, without any
             spaces or other symbols
           </small>
-          {errors.name && <p className="errors">{errors.name.message}</p>}
+          {errors.branch && <p className="errors">{errors.branch.message}</p>}
         </div>
 
         <div>
