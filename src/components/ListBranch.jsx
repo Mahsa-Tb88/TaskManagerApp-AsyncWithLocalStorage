@@ -21,13 +21,14 @@ export default function ListBranch({ branch }) {
     }
     const resultOne = await deleteUsersInBranch(id);
     // console.log(resultOne, resultOne.body);
+    navigate("/", { replace: true });
+
     if (resultOne.success) {
       dispatch({ type: "setUsers", payload: resultOne.body });
       const result = await deleteBranch(id);
       if (result.success) {
         dispatch({ type: "setBranches", payload: result.body });
         toast.success(result.message);
-        navigate("/", { replace: true });
       } else {
         toast.error(result.message);
       }

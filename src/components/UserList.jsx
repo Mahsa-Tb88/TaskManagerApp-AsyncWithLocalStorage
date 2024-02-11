@@ -10,7 +10,6 @@ export default function UserList({
   const { state, dispatch } = UseUserContext();
   const params = useParams();
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
 
   const listOfProvince = [
     "British Columbia",
@@ -30,7 +29,7 @@ export default function UserList({
     const timeOut = setTimeout(fetchUsers, 20);
     return () => clearTimeout(timeOut);
   }, [params.BranchName]);
-
+console.log("yeeeeeeees")
   function userInfoHandler(id) {
     navigate(`/user/${id}`);
   }

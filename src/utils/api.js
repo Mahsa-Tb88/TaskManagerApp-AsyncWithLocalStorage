@@ -166,10 +166,8 @@ async function updateUser(user) {
   };
 }
 async function updateBranch(newbranch) {
-  
   const branches = await getAllBranches();
   const users = await getAllUsers();
-
 
   const selectedBranch = branches.find((b) => b.id == newbranch.id);
   if (Math.random() > successRate) {
@@ -256,11 +254,9 @@ async function deleteUsersInBranch(id) {
     return serverError();
   }
   const selectedBranch = branches.find((b) => b.id == id);
-  console.log(selectedBranch);
   const selectedUsers = users.filter(
     (user) => user.branch != selectedBranch.branchName
   );
-  console.log(selectedUsers);
   localStorage.users = JSON.stringify(selectedUsers);
   if (users.length >= selectedUsers.length) {
     return {
